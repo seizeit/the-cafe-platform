@@ -5,9 +5,10 @@ import type { NextRequest } from 'next/server'
 // Will be replaced with proper authentication later
 
 export function middleware(request: NextRequest) {
-  // Skip middleware for login page and static assets
+  // Skip middleware for login page, debug endpoint, and static assets
   if (
     request.nextUrl.pathname === '/login' ||
+    request.nextUrl.pathname.startsWith('/api/debug') ||
     request.nextUrl.pathname.startsWith('/_next') ||
     request.nextUrl.pathname.startsWith('/favicon')
   ) {
