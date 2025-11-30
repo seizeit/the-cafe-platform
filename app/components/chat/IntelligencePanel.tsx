@@ -2,9 +2,23 @@
 
 import { useEffect, useState } from 'react'
 
+type Project = {
+  id: string
+  name: string
+  description: string
+  emoji: string
+  color: string
+  agents: {
+    id: string
+    name: string
+    emoji: string
+  }[]
+}
+
 type IntelligencePanelProps = {
   conversationTopic: string
   selectedAgentId?: string
+  selectedProject: Project | null
 }
 
 type SuggestedAgent = {
@@ -22,54 +36,100 @@ type MissingAgent = {
   domain: string
 }
 
-export default function IntelligencePanel({ conversationTopic, selectedAgentId }: IntelligencePanelProps) {
+export default function IntelligencePanel({ conversationTopic, selectedAgentId, selectedProject }: IntelligencePanelProps) {
   const [suggestedAgents, setSuggestedAgents] = useState<SuggestedAgent[]>([])
   const [missingAgents, setMissingAgents] = useState<MissingAgent[]>([])
   const [isAnalyzing, setIsAnalyzing] = useState(false)
 
   useEffect(() => {
-    if (conversationTopic) {
+    if (conversationTopic || selectedProject) {
       analyzeTopicAndSuggest()
     }
-  }, [conversationTopic])
+  }, [conversationTopic, selectedProject])
 
   const analyzeTopicAndSuggest = async () => {
     setIsAnalyzing(true)
 
     // TODO: Call AI API to analyze topic and suggest agents
-    // Simulating analysis
+    // Project-aware analysis: If project is selected, analyze based on project context
     setTimeout(() => {
-      setSuggestedAgents([
-        {
-          id: '1',
-          name: 'Marketing Strategist - B2B SaaS',
-          emoji: '📊',
-          matchReason: 'Expertise in B2B strategy and positioning',
-          matchScore: 95
-        },
-        {
-          id: '3',
-          name: 'Email Copywriter - Technical',
-          emoji: '✍️',
-          matchReason: 'Can craft compelling technical email copy',
-          matchScore: 88
-        }
-      ])
+      if (selectedProject) {
+        // Project-aware mode: Show agents in project and detect gaps
+        const projectAgentIds = selectedProject.agents.map(a => a.id)
 
-      setMissingAgents([
-        {
-          suggestedName: 'Campaign Manager - Drip Sequences',
-          emoji: '📧',
-          reasoning: 'Detected need for email campaign automation and sequencing expertise',
-          domain: 'marketing'
-        },
-        {
-          suggestedName: 'Data Analyst - Email Metrics',
-          emoji: '📈',
-          reasoning: 'Would help analyze campaign performance and optimize metrics',
-          domain: 'analytics'
-        }
-      ])
+        // Suggest agents from the project that are relevant to the topic
+        setSuggestedAgents([
+          {
+            id: '1',
+            name: 'Marketing Strategist - B2B SaaS',
+            emoji: '📊',
+            matchReason: `Already in "${selectedProject.name}" - perfect for strategy`,
+            matchScore: 98
+          },
+          {
+            id: '3',
+            name: 'Email Copywriter - Technical',
+            emoji: '✍️',
+            matchReason: `Already in "${selectedProject.name}" - handles copy`,
+            matchScore: 92
+          }
+        ])
+
+        // Detect gaps specific to this project
+        setMissingAgents([
+          {
+            suggestedName: 'Campaign Manager - Drip Sequences',
+            emoji: '📧',
+            reasoning: `Missing from "${selectedProject.name}" - needed for email automation and sequencing`,
+            domain: 'marketing'
+          },
+          {
+            suggestedName: 'Data Analyst - Email Metrics',
+            emoji: '📈',
+            reasoning: `Gap in "${selectedProject.name}" - would track campaign performance and ROI`,
+            domain: 'analytics'
+          },
+          {
+            suggestedName: 'A/B Test Specialist',
+            emoji: '🧪',
+            reasoning: `Not in project - could optimize email variations and improve conversion rates`,
+            domain: 'optimization'
+          }
+        ])
+      } else {
+        // General mode: Standard topic-based recommendations
+        setSuggestedAgents([
+          {
+            id: '1',
+            name: 'Marketing Strategist - B2B SaaS',
+            emoji: '📊',
+            matchReason: 'Expertise in B2B strategy and positioning',
+            matchScore: 95
+          },
+          {
+            id: '3',
+            name: 'Email Copywriter - Technical',
+            emoji: '✍️',
+            matchReason: 'Can craft compelling technical email copy',
+            matchScore: 88
+          }
+        ])
+
+        setMissingAgents([
+          {
+            suggestedName: 'Campaign Manager - Drip Sequences',
+            emoji: '📧',
+            reasoning: 'Detected need for email campaign automation and sequencing expertise',
+            domain: 'marketing'
+          },
+          {
+            suggestedName: 'Data Analyst - Email Metrics',
+            emoji: '📈',
+            reasoning: 'Would help analyze campaign performance and optimize metrics',
+            domain: 'analytics'
+          }
+        ])
+      }
 
       setIsAnalyzing(false)
     }, 1500)
@@ -87,6 +147,34 @@ export default function IntelligencePanel({ conversationTopic, selectedAgentId }
         <h3 className="font-serif text-lg font-semibold text-espresso mb-1">Intelligence Panel</h3>
         <p className="text-sm text-warm-gray">AI-powered agent recommendations</p>
       </div>
+
+      {/* Project Context */}
+      {selectedProject && (
+        <div className="bg-cream p-4 rounded border-2 border-light-gray" style={{ borderColor: selectedProject.color }}>
+          <div className="flex items-start gap-3 mb-3">
+            <span className="text-2xl">{selectedProject.emoji}</span>
+            <div className="flex-1">
+              <h4 className="font-medium text-coffee mb-1">{selectedProject.name}</h4>
+              <p className="text-sm text-charcoal">{selectedProject.description}</p>
+            </div>
+          </div>
+
+          {/* Project Agents */}
+          {selectedProject.agents.length > 0 && (
+            <div className="mt-3 pt-3 border-t border-light-gray">
+              <p className="text-xs font-medium text-warm-gray mb-2">AGENTS IN PROJECT</p>
+              <div className="space-y-1">
+                {selectedProject.agents.map(agent => (
+                  <div key={agent.id} className="flex items-center gap-2 text-sm">
+                    <span>{agent.emoji}</span>
+                    <span className="text-coffee">{agent.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Topic Analysis */}
       {conversationTopic && (
@@ -178,11 +266,11 @@ export default function IntelligencePanel({ conversationTopic, selectedAgentId }
       )}
 
       {/* Empty State */}
-      {!conversationTopic && (
+      {!conversationTopic && !selectedProject && (
         <div className="text-center py-8">
           <div className="text-4xl mb-2">🤔</div>
           <p className="text-sm text-warm-gray">
-            Start a conversation to see agent recommendations
+            Select a project or start a conversation to see agent recommendations
           </p>
         </div>
       )}

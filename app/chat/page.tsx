@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ChatInterface from '@/app/components/chat/ChatInterface'
 import AgentSelector from '@/app/components/chat/AgentSelector'
 import IntelligencePanel from '@/app/components/chat/IntelligencePanel'
+import ProjectSelector from '@/app/components/chat/ProjectSelector'
 
 type Agent = {
   id: string
@@ -12,11 +13,26 @@ type Agent = {
   defaultModel: string
 }
 
+type Project = {
+  id: string
+  name: string
+  description: string
+  emoji: string
+  color: string
+  agents: {
+    id: string
+    name: string
+    emoji: string
+  }[]
+}
+
 export default function ChatPage() {
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null)
   const [currentModel, setCurrentModel] = useState<string>('claude-sonnet-4')
   const [conversationTopic, setConversationTopic] = useState<string>('')
   const [showIntelligencePanel, setShowIntelligencePanel] = useState(true)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [projects, setProjects] = useState<Project[]>([])
 
   // Mock agents - TODO: Fetch from API
   const agents: Agent[] = [
@@ -24,6 +40,23 @@ export default function ChatPage() {
     { id: '2', name: 'Code Reviewer - Python Backend', emoji: '🔍', defaultModel: 'claude-sonnet-4' },
     { id: '3', name: 'Email Copywriter - Technical', emoji: '✍️', defaultModel: 'gpt-4' }
   ]
+
+  useEffect(() => {
+    // TODO: Fetch projects from API
+    setProjects([
+      {
+        id: '1',
+        name: 'B2B Email Campaign',
+        description: 'Launch email campaign for new API product',
+        emoji: '📧',
+        color: '#8b4049',
+        agents: [
+          { id: '1', name: 'Marketing Strategist - B2B SaaS', emoji: '📊' },
+          { id: '3', name: 'Email Copywriter - Technical', emoji: '✍️' }
+        ]
+      }
+    ])
+  }, [])
 
   const handleAgentSelect = (agent: Agent) => {
     setSelectedAgent(agent)
@@ -70,6 +103,15 @@ export default function ChatPage() {
       <div className="flex-1 flex overflow-hidden">
         {/* Chat Area */}
         <div className="flex-1 flex flex-col">
+          {/* Project Selector */}
+          <div className="bg-cream border-b border-light-gray px-8 py-3">
+            <ProjectSelector
+              projects={projects}
+              selectedProject={selectedProject}
+              onSelectProject={setSelectedProject}
+            />
+          </div>
+
           {/* Agent Selector */}
           <div className="bg-parchment border-b border-light-gray px-8 py-4">
             <AgentSelector
@@ -107,6 +149,7 @@ export default function ChatPage() {
             <IntelligencePanel
               conversationTopic={conversationTopic}
               selectedAgentId={selectedAgent?.id}
+              selectedProject={selectedProject}
             />
           </div>
         )}
