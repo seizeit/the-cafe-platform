@@ -9,6 +9,7 @@ type Project = {
   emoji: string
   color: string
   agentCount: number
+  conversationCount: number
   agents: {
     id: string
     name: string
