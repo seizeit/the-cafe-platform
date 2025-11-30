@@ -8,6 +8,12 @@ type Project = {
   description: string
   emoji: string
   color: string
+  agentCount: number
+  agents: {
+    id: string
+    name: string
+    emoji: string
+  }[]
 }
 
 type EditProjectModalProps = {
