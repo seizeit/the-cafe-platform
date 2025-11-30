@@ -2,11 +2,10 @@
 
 import { useState } from 'react'
 import DomainView from '@/app/components/agents/DomainView'
-import ProjectsView from '@/app/components/agents/ProjectsView'
 import AllAgentsView from '@/app/components/agents/AllAgentsView'
 import CreateAgentModal from '@/app/components/agents/CreateAgentModal'
 
-type ViewType = 'domain' | 'projects' | 'all'
+type ViewType = 'domain' | 'all'
 
 export default function AgentsPage() {
   const [activeView, setActiveView] = useState<ViewType>('domain')
@@ -28,19 +27,19 @@ export default function AgentsPage() {
               The.Cafe
             </a>
             <div className="flex gap-6">
-              <a href="/agents" className="text-gold font-medium border-b-2 border-gold pb-1">
-                Agent Library
+              <a href="/projects" className="text-parchment hover:text-gold transition-colors">
+                Projects
               </a>
-              <a href="/chat" className="text-parchment hover:text-gold transition-colors">
-                Chat
+              <a href="/agents" className="text-gold font-medium border-b-2 border-gold pb-1">
+                Agents
               </a>
             </div>
           </div>
           {/* Page Header */}
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="font-serif text-3xl font-semibold mb-1">Agent Library</h1>
-              <p className="text-parchment text-sm opacity-80">Your conversational AI workforce</p>
+              <h1 className="font-serif text-3xl font-semibold mb-1">Agents</h1>
+              <p className="text-parchment text-sm opacity-80">Browse and manage your AI agents</p>
             </div>
             <button
               onClick={() => setIsCreateModalOpen(true)}
@@ -67,16 +66,6 @@ export default function AgentsPage() {
               📁 Domain Hierarchy
             </button>
             <button
-              onClick={() => setActiveView('projects')}
-              className={`py-4 px-2 font-medium border-b-2 transition-colors ${
-                activeView === 'projects'
-                  ? 'border-burgundy text-espresso'
-                  : 'border-transparent text-warm-gray hover:text-coffee'
-              }`}
-            >
-              🎯 Projects
-            </button>
-            <button
               onClick={() => setActiveView('all')}
               className={`py-4 px-2 font-medium border-b-2 transition-colors ${
                 activeView === 'all'
@@ -93,7 +82,6 @@ export default function AgentsPage() {
       {/* Content */}
       <main className="max-w-7xl mx-auto px-8 py-8">
         {activeView === 'domain' && <DomainView />}
-        {activeView === 'projects' && <ProjectsView />}
         {activeView === 'all' && <AllAgentsView />}
       </main>
 
