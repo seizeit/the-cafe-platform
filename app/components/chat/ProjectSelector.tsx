@@ -6,6 +6,11 @@ type Project = {
   description: string
   emoji: string
   color: string
+  agents: {
+    id: string
+    name: string
+    emoji: string
+  }[]
 }
 
 type ProjectSelectorProps = {
