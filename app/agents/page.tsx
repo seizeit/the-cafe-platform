@@ -21,7 +21,22 @@ export default function AgentsPage() {
     <div className="min-h-screen bg-cream">
       {/* Header */}
       <header className="bg-espresso text-cream border-b border-mocha">
-        <div className="max-w-7xl mx-auto px-8 py-6">
+        <div className="max-w-7xl mx-auto px-8 py-4">
+          {/* Top Nav */}
+          <div className="flex items-center justify-between mb-4">
+            <a href="/" className="font-serif text-xl font-semibold hover:text-gold transition-colors">
+              The.Cafe
+            </a>
+            <div className="flex gap-6">
+              <a href="/agents" className="text-gold font-medium border-b-2 border-gold pb-1">
+                Agent Library
+              </a>
+              <a href="/chat" className="text-parchment hover:text-gold transition-colors">
+                Chat
+              </a>
+            </div>
+          </div>
+          {/* Page Header */}
           <div className="flex items-center justify-between">
             <div>
               <h1 className="font-serif text-3xl font-semibold mb-1">Agent Library</h1>

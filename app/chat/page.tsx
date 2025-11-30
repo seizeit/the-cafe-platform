@@ -34,19 +34,35 @@ export default function ChatPage() {
     <div className="h-screen flex flex-col bg-cream">
       {/* Header */}
       <header className="bg-espresso text-cream border-b border-mocha flex-shrink-0">
-        <div className="px-8 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="font-serif text-2xl font-semibold">The.Cafe</h1>
-            <p className="text-parchment text-sm opacity-80">Conversation</p>
+        <div className="px-8 py-4">
+          {/* Top Nav */}
+          <div className="flex items-center justify-between mb-4">
+            <a href="/" className="font-serif text-xl font-semibold hover:text-gold transition-colors">
+              The.Cafe
+            </a>
+            <div className="flex gap-6">
+              <a href="/agents" className="text-parchment hover:text-gold transition-colors">
+                Agent Library
+              </a>
+              <a href="/chat" className="text-gold font-medium border-b-2 border-gold pb-1">
+                Chat
+              </a>
+            </div>
           </div>
-
-          {/* Intelligence Panel Toggle */}
-          <button
-            onClick={() => setShowIntelligencePanel(!showIntelligencePanel)}
-            className="px-4 py-2 bg-mocha hover:bg-coffee rounded transition-colors text-sm"
-          >
-            {showIntelligencePanel ? '← Hide' : 'Show →'} Intelligence Panel
-          </button>
+          {/* Page Header */}
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="font-serif text-2xl font-semibold">Conversation</h1>
+              <p className="text-parchment text-sm opacity-80">Chat with your AI agents</p>
+            </div>
+            {/* Intelligence Panel Toggle */}
+            <button
+              onClick={() => setShowIntelligencePanel(!showIntelligencePanel)}
+              className="px-4 py-2 bg-mocha hover:bg-coffee rounded transition-colors text-sm"
+            >
+              {showIntelligencePanel ? '← Hide' : 'Show →'} Intelligence Panel
+            </button>
+          </div>
         </div>
       </header>
 
