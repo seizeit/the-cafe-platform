@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+/* The.Cafe Color Palette */
+:root {
+  /* Primary Colors */
+  --espresso: #2c1810;
+  --coffee: #4a3428;
+  --mocha: #6b4e3d;
+  --cream: #f5f1ed;
+  --parchment: #e8e3db;
+
+  /* Accent Colors */
+  --burgundy: #8b4049;
+  --gold: #c9a961;
+  --sage: #8b9a7a;
+
+  /* Neutral Colors */
+  --charcoal: #3d3d3d;
+  --warm-gray: #6b6561;
+  --light-gray: #d4cec7;
+
+  /* App Theme */
+  --background: var(--cream);
+  --foreground: var(--charcoal);
+}
+
+@theme inline {
+  /* The.Cafe Brand Colors */
+  --color-espresso: var(--espresso);
+  --color-coffee: var(--coffee);
+  --color-mocha: var(--mocha);
+  --color-cream: var(--cream);
+  --color-parchment: var(--parchment);
+  --color-burgundy: var(--burgundy);
+  --color-gold: var(--gold);
+  --color-sage: var(--sage);
+  --color-charcoal: var(--charcoal);
+  --color-warm-gray: var(--warm-gray);
+  --color-light-gray: var(--light-gray);
+
+  /* App Theme */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Fonts */
+  --font-serif: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
