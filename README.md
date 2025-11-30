@@ -54,3 +54,4 @@ Optimized for Vercel - just import from GitHub and add environment variables.
 - Next.js 15, TypeScript, Tailwind CSS
 - Prisma + PostgreSQL
 - Multi-AI integration (Claude, GPT-4, Gemini)
+# Force rebuild
