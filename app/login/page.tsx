@@ -47,7 +47,7 @@ export default function LoginPage() {
         </div>
 
         {/* Login Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} action="javascript:void(0);" className="space-y-6">
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-coffee mb-2">
               Access Password
