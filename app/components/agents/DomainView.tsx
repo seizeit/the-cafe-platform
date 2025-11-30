@@ -46,36 +46,13 @@ type Agent = {
 }
 
 type DomainViewProps = {
+  agents: Agent[]
   onEditAgent: (agent: Agent) => void
   onCreateAgentInDomain: (domain: string) => void
 }
 
-export default function DomainView({ onEditAgent, onCreateAgentInDomain }: DomainViewProps) {
-  const [agents, setAgents] = useState<Agent[]>([])
+export default function DomainView({ agents, onEditAgent, onCreateAgentInDomain }: DomainViewProps) {
   const [expandedDomains, setExpandedDomains] = useState<Set<string>>(new Set(Object.keys(DOMAINS)))
-
-  useEffect(() => {
-    // TODO: Fetch agents from API
-    // For now, showing placeholder data
-    setAgents([
-      {
-        id: '1',
-        name: 'Marketing Strategist - B2B SaaS',
-        emoji: '📊',
-        domain: 'marketing',
-        subCategory: 'strategy',
-        description: 'Specialized in B2B SaaS marketing strategy and positioning'
-      },
-      {
-        id: '2',
-        name: 'Code Reviewer - Python Backend',
-        emoji: '🔍',
-        domain: 'engineering',
-        subCategory: 'backend',
-        description: 'Expert code reviewer for Python backend systems'
-      }
-    ])
-  }, [])
 
   const toggleDomain = (domain: string) => {
     const newExpanded = new Set(expandedDomains)
