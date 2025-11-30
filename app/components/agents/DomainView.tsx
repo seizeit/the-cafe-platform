@@ -45,7 +45,12 @@ type Agent = {
   description?: string
 }
 
-export default function DomainView() {
+type DomainViewProps = {
+  onEditAgent: (agent: Agent) => void
+  onCreateAgentInDomain: (domain: string) => void
+}
+
+export default function DomainView({ onEditAgent, onCreateAgentInDomain }: DomainViewProps) {
   const [agents, setAgents] = useState<Agent[]>([])
   const [expandedDomains, setExpandedDomains] = useState<Set<string>>(new Set(Object.keys(DOMAINS)))
 
@@ -95,21 +100,29 @@ export default function DomainView() {
         return (
           <div key={domainKey} className="bg-parchment rounded border border-light-gray overflow-hidden">
             {/* Domain Header */}
-            <button
-              onClick={() => toggleDomain(domainKey)}
-              className="w-full px-6 py-4 flex items-center justify-between hover:bg-cream transition-colors"
-            >
-              <div className="flex items-center gap-3">
+            <div className="px-6 py-4 flex items-center justify-between hover:bg-cream transition-colors">
+              <button
+                onClick={() => toggleDomain(domainKey)}
+                className="flex-1 flex items-center gap-3 text-left"
+              >
                 <span className="text-2xl">{domain.emoji}</span>
-                <div className="text-left">
+                <div>
                   <h3 className="font-serif text-xl font-semibold text-espresso">{domain.label}</h3>
                   <p className="text-sm text-warm-gray">{domainAgents.length} agents</p>
                 </div>
+              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => onCreateAgentInDomain(domainKey)}
+                  className="px-3 py-1.5 text-sm bg-burgundy hover:bg-coffee text-cream rounded transition-colors"
+                >
+                  + Add Agent
+                </button>
+                <span className="text-warm-gray text-xl">
+                  {isExpanded ? '−' : '+'}
+                </span>
               </div>
-              <span className="text-warm-gray text-xl">
-                {isExpanded ? '−' : '+'}
-              </span>
-            </button>
+            </div>
 
             {/* Agents List */}
             {isExpanded && (
@@ -118,9 +131,10 @@ export default function DomainView() {
                   <p className="text-warm-gray italic py-4">No agents in this domain yet</p>
                 ) : (
                   domainAgents.map(agent => (
-                    <div
+                    <button
                       key={agent.id}
-                      className="bg-cream p-4 rounded border border-light-gray hover:border-burgundy transition-colors cursor-pointer"
+                      onClick={() => onEditAgent(agent)}
+                      className="w-full bg-cream p-4 rounded border border-light-gray hover:border-burgundy transition-colors cursor-pointer text-left"
                     >
                       <div className="flex items-start gap-3">
                         <span className="text-2xl">{agent.emoji}</span>
@@ -136,7 +150,7 @@ export default function DomainView() {
                           )}
                         </div>
                       </div>
-                    </div>
+                    </button>
                   ))
                 )}
               </div>

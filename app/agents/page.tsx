@@ -10,10 +10,22 @@ type ViewType = 'domain' | 'all'
 export default function AgentsPage() {
   const [activeView, setActiveView] = useState<ViewType>('domain')
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const [prefilledDomain, setPrefilledDomain] = useState<string | null>(null)
 
   const handleCreateAgent = (agentData: any) => {
     // TODO: Save agent to database via API
     console.log('Creating agent:', agentData)
+    setPrefilledDomain(null) // Reset after creation
+  }
+
+  const handleCreateAgentInDomain = (domain: string) => {
+    setPrefilledDomain(domain)
+    setIsCreateModalOpen(true)
+  }
+
+  const handleEditAgentFromDomain = (agent: any) => {
+    // Will be implemented when we add edit functionality
+    console.log('Edit agent:', agent)
   }
 
   return (
@@ -81,15 +93,24 @@ export default function AgentsPage() {
 
       {/* Content */}
       <main className="max-w-7xl mx-auto px-8 py-8">
-        {activeView === 'domain' && <DomainView />}
+        {activeView === 'domain' && (
+          <DomainView
+            onEditAgent={handleEditAgentFromDomain}
+            onCreateAgentInDomain={handleCreateAgentInDomain}
+          />
+        )}
         {activeView === 'all' && <AllAgentsView />}
       </main>
 
       {/* Create Agent Modal */}
       <CreateAgentModal
         isOpen={isCreateModalOpen}
-        onClose={() => setIsCreateModalOpen(false)}
+        onClose={() => {
+          setIsCreateModalOpen(false)
+          setPrefilledDomain(null)
+        }}
         onSubmit={handleCreateAgent}
+        initialDomain={prefilledDomain}
       />
     </div>
   )

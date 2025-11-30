@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 type CreateAgentModalProps = {
   isOpen: boolean
   onClose: () => void
   onSubmit: (agent: NewAgent) => void
+  initialDomain?: string | null
 }
 
 type NewAgent = {
@@ -36,17 +37,24 @@ const AI_MODELS = [
   { value: 'gemini-ultra', label: 'Gemini Ultra' }
 ]
 
-export default function CreateAgentModal({ isOpen, onClose, onSubmit }: CreateAgentModalProps) {
+export default function CreateAgentModal({ isOpen, onClose, onSubmit, initialDomain }: CreateAgentModalProps) {
   const [formData, setFormData] = useState<NewAgent>({
     role: '',
     specialization: '',
     emoji: '🤖',
-    domain: 'marketing',
+    domain: initialDomain || 'marketing',
     subCategory: '',
     description: '',
     defaultModel: 'claude-sonnet-4',
     systemPrompt: ''
   })
+
+  // Update domain when initialDomain prop changes
+  useEffect(() => {
+    if (initialDomain) {
+      setFormData(prev => ({ ...prev, domain: initialDomain }))
+    }
+  }, [initialDomain])
 
   const [errors, setErrors] = useState<Record<string, string>>({})
 
