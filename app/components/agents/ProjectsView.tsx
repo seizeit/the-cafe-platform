@@ -12,6 +12,7 @@ type Project = {
   emoji: string
   color: string
   agentCount: number
+  conversationCount: number
   agents: {
     id: string
     name: string
@@ -52,6 +53,7 @@ export default function ProjectsView() {
         emoji: '📧',
         color: '#8b4049',
         agentCount: 2,
+        conversationCount: 0,
         agents: [
           { id: '1', name: 'Marketing Strategist - B2B SaaS', emoji: '📊' },
           { id: '2', name: 'Email Copywriter - Technical', emoji: '✍️' }
@@ -75,6 +77,7 @@ export default function ProjectsView() {
       id: Date.now().toString(),
       ...projectData,
       agentCount: 0,
+      conversationCount: 0,
       agents: []
     }
     setProjects([...projects, newProject])
