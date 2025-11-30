@@ -9,6 +9,15 @@ export async function POST(request: NextRequest) {
     // Get MVP password from environment variable
     const mvpPassword = process.env.MVP_PASSWORD || 'thecafe2025'
 
+    // Debug logging
+    console.log('Login attempt:', {
+      receivedLength: password?.length,
+      expectedLength: mvpPassword.length,
+      match: password === mvpPassword,
+      receivedTrimmed: password?.trim(),
+      expectedTrimmed: mvpPassword.trim()
+    })
+
     if (password === mvpPassword) {
       // Create response with success
       const response = NextResponse.json({ success: true })
@@ -24,7 +33,13 @@ export async function POST(request: NextRequest) {
       return response
     } else {
       return NextResponse.json(
-        { error: 'Invalid password' },
+        {
+          error: 'Invalid password',
+          debug: {
+            receivedLength: password?.length,
+            expectedLength: mvpPassword.length
+          }
+        },
         { status: 401 }
       )
     }
