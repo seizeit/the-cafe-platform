@@ -19,17 +19,13 @@ export function middleware(request: NextRequest) {
   // Check if user is authenticated
   const authCookie = request.cookies.get('thecafe_auth')
 
-  if (!authCookie) {
-    // Redirect to login if not authenticated
-    return NextResponse.redirect(new URL('/login', request.url))
-  }
-
   // Verify password (simple check for MVP)
   const mvpPassword = process.env.MVP_PASSWORD || 'thecafe2025'
 
-  if (authCookie.value !== mvpPassword) {
-    // Invalid password, redirect to login
-    return NextResponse.redirect(new URL('/login', request.url))
+  if (!authCookie || authCookie.value !== mvpPassword) {
+    // Redirect to login if not authenticated or invalid password
+    const loginUrl = new URL('/login', request.url)
+    return NextResponse.redirect(loginUrl, 307)
   }
 
   return NextResponse.next()
