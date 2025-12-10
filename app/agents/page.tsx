@@ -105,29 +105,14 @@ export default function AgentsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-cream">
-      {/* Header */}
-      <header className="bg-espresso text-cream border-b border-mocha">
-        <div className="max-w-7xl mx-auto px-8 py-4">
-          {/* Top Nav */}
-          <div className="flex items-center justify-between mb-4">
-            <a href="/" className="font-serif text-xl font-semibold hover:text-gold transition-colors">
-              The.Cafe
-            </a>
-            <div className="flex gap-6">
-              <a href="/projects" className="text-parchment hover:text-gold transition-colors">
-                Projects
-              </a>
-              <a href="/agents" className="text-gold font-medium border-b-2 border-gold pb-1">
-                Agents
-              </a>
-            </div>
-          </div>
-          {/* Page Header */}
+    <div className="min-h-screen bg-black">
+      {/* Page Header */}
+      <div className="max-w-7xl mx-auto px-8 pt-8">
+        <div className="mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="font-serif text-3xl font-semibold mb-1">Agents</h1>
-              <p className="text-parchment text-sm opacity-80">Browse and manage your AI agents</p>
+              <h1 className="text-4xl font-bold mb-2">Agents</h1>
+              <p className="text-gray-light">Browse and manage your AI agents</p>
             </div>
             <button
               onClick={() => setIsCreateModalOpen(true)}
@@ -137,18 +122,18 @@ export default function AgentsPage() {
             </button>
           </div>
         </div>
-      </header>
+      </div>
 
       {/* Tab Navigation */}
-      <div className="bg-parchment border-b border-light-gray">
+      <div className="bg-charcoal border-b border-light-gray">
         <div className="max-w-7xl mx-auto px-8">
           <nav className="flex gap-8">
             <button
               onClick={() => setActiveView('domain')}
               className={`py-4 px-2 font-medium border-b-2 transition-colors ${
                 activeView === 'domain'
-                  ? 'border-burgundy text-espresso'
-                  : 'border-transparent text-warm-gray hover:text-coffee'
+                  ? 'border-burgundy text-white'
+                  : 'border-transparent text-gray-light hover:text-white'
               }`}
             >
               📁 Domain Hierarchy
@@ -157,8 +142,8 @@ export default function AgentsPage() {
               onClick={() => setActiveView('all')}
               className={`py-4 px-2 font-medium border-b-2 transition-colors ${
                 activeView === 'all'
-                  ? 'border-burgundy text-espresso'
-                  : 'border-transparent text-warm-gray hover:text-coffee'
+                  ? 'border-burgundy text-white'
+                  : 'border-transparent text-gray-light hover:text-white'
               }`}
             >
               🤖 All Agents

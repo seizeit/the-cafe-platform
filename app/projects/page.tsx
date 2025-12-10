@@ -75,29 +75,14 @@ export default function ProjectsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-cream">
-      {/* Header */}
-      <header className="bg-espresso text-cream border-b border-mocha">
-        <div className="max-w-7xl mx-auto px-8 py-4">
-          {/* Top Nav */}
-          <div className="flex items-center justify-between mb-4">
-            <a href="/" className="font-serif text-xl font-semibold hover:text-gold transition-colors">
-              The.Cafe
-            </a>
-            <div className="flex gap-6">
-              <a href="/projects" className="text-gold font-medium border-b-2 border-gold pb-1">
-                Projects
-              </a>
-              <a href="/agents" className="text-parchment hover:text-gold transition-colors">
-                Agents
-              </a>
-            </div>
-          </div>
-          {/* Page Header */}
+    <div className="min-h-screen bg-black">
+      {/* Projects Grid */}
+      <main className="max-w-7xl mx-auto px-8 py-8">
+        <div className="mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="font-serif text-3xl font-semibold mb-1">Projects</h1>
-              <p className="text-parchment text-sm opacity-80">Organize agents and conversations by project</p>
+              <h1 className="text-4xl font-bold mb-2">Projects</h1>
+              <p className="text-gray-light">Manage your AI agent projects</p>
             </div>
             <button
               onClick={() => setIsCreateModalOpen(true)}
@@ -107,15 +92,11 @@ export default function ProjectsPage() {
             </button>
           </div>
         </div>
-      </header>
-
-      {/* Projects Grid */}
-      <main className="max-w-7xl mx-auto px-8 py-8">
         {projects.length === 0 ? (
-          <div className="bg-parchment rounded border-2 border-dashed border-light-gray p-12 text-center">
+          <div className="bg-charcoal rounded border-2 border-dashed border-light-gray p-12 text-center">
             <div className="text-6xl mb-4">📁</div>
-            <h3 className="font-serif text-xl text-coffee mb-2">No projects yet</h3>
-            <p className="text-warm-gray mb-4">Create your first project to organize agents and conversations</p>
+            <h3 className="font-serif text-xl text-white mb-2">No projects yet</h3>
+            <p className="text-gray-light mb-4">Create your first project to organize agents and conversations</p>
             <button
               onClick={() => setIsCreateModalOpen(true)}
               className="bg-burgundy hover:bg-coffee text-cream px-6 py-2.5 rounded transition-colors font-medium"
@@ -128,7 +109,7 @@ export default function ProjectsPage() {
             {projects.map(project => (
               <div
                 key={project.id}
-                className="bg-parchment rounded border-2 border-light-gray hover:border-burgundy transition-all cursor-pointer group"
+                className="bg-charcoal rounded border-2 border-light-gray hover:border-burgundy transition-all cursor-pointer group"
                 style={{ borderColor: project.color }}
               >
                 {/* Project Card */}
@@ -140,21 +121,21 @@ export default function ProjectsPage() {
                         e.stopPropagation()
                         handleEditProject(project)
                       }}
-                      className="opacity-0 group-hover:opacity-100 px-3 py-1 text-sm bg-parchment hover:bg-burgundy hover:text-cream rounded transition-all"
+                      className="opacity-0 group-hover:opacity-100 px-3 py-1 text-sm bg-charcoal hover:bg-burgundy hover:text-cream rounded transition-all"
                     >
                       Edit
                     </button>
                   </div>
-                  <h3 className="font-serif text-xl font-semibold text-espresso mb-2">{project.name}</h3>
-                  <p className="text-sm text-charcoal mb-4 line-clamp-2">{project.description}</p>
+                  <h3 className="font-serif text-xl font-semibold text-white mb-2">{project.name}</h3>
+                  <p className="text-sm text-white mb-4 line-clamp-2">{project.description}</p>
 
                   {/* Stats */}
-                  <div className="flex gap-4 text-sm text-warm-gray">
+                  <div className="flex gap-4 text-sm text-gray-light">
                     <div>
-                      <span className="font-medium text-coffee">{project.agentCount}</span> agents
+                      <span className="font-medium text-white">{project.agentCount}</span> agents
                     </div>
                     <div>
-                      <span className="font-medium text-coffee">{project.conversationCount}</span> conversations
+                      <span className="font-medium text-white">{project.conversationCount}</span> conversations
                     </div>
                   </div>
                 </div>

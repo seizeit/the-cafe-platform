@@ -64,47 +64,30 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-cream">
-      {/* Header */}
-      <header className="bg-espresso text-cream border-b border-mocha flex-shrink-0">
-        <div className="px-8 py-4">
-          {/* Top Nav */}
-          <div className="flex items-center justify-between mb-4">
-            <a href="/" className="font-serif text-xl font-semibold hover:text-gold transition-colors">
-              The.Cafe
-            </a>
-            <div className="flex gap-6">
-              <a href="/agents" className="text-parchment hover:text-gold transition-colors">
-                Agent Library
-              </a>
-              <a href="/chat" className="text-gold font-medium border-b-2 border-gold pb-1">
-                Chat
-              </a>
-            </div>
+    <div className="h-screen flex flex-col bg-black">
+      {/* Page Header */}
+      <div className="px-8 pt-6 pb-4 flex-shrink-0">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold mb-1">Conversation</h1>
+            <p className="text-gray-light text-sm">Chat with your AI agents</p>
           </div>
-          {/* Page Header */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="font-serif text-2xl font-semibold">Conversation</h1>
-              <p className="text-parchment text-sm opacity-80">Chat with your AI agents</p>
-            </div>
-            {/* Intelligence Panel Toggle */}
-            <button
-              onClick={() => setShowIntelligencePanel(!showIntelligencePanel)}
-              className="px-4 py-2 bg-mocha hover:bg-coffee rounded transition-colors text-sm"
-            >
-              {showIntelligencePanel ? '← Hide' : 'Show →'} Intelligence Panel
-            </button>
-          </div>
+          {/* Intelligence Panel Toggle */}
+          <button
+            onClick={() => setShowIntelligencePanel(!showIntelligencePanel)}
+            className="px-4 py-2 bg-charcoal hover:bg-coffee rounded transition-colors text-sm text-white"
+          >
+            {showIntelligencePanel ? '← Hide' : 'Show →'} Intelligence Panel
+          </button>
         </div>
-      </header>
+      </div>
 
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden">
         {/* Chat Area */}
         <div className="flex-1 flex flex-col">
           {/* Project Selector */}
-          <div className="bg-cream border-b border-light-gray px-8 py-3">
+          <div className="bg-black border-b border-light-gray px-8 py-3">
             <ProjectSelector
               projects={projects}
               selectedProject={selectedProject}
@@ -113,7 +96,7 @@ export default function ChatPage() {
           </div>
 
           {/* Agent Selector */}
-          <div className="bg-parchment border-b border-light-gray px-8 py-4">
+          <div className="bg-charcoal border-b border-light-gray px-8 py-4">
             <AgentSelector
               agents={agents}
               selectedAgent={selectedAgent}
@@ -135,8 +118,8 @@ export default function ChatPage() {
               <div className="h-full flex items-center justify-center">
                 <div className="text-center">
                   <div className="text-6xl mb-4">☕</div>
-                  <h2 className="font-serif text-2xl text-coffee mb-2">Select an agent to begin</h2>
-                  <p className="text-warm-gray">Choose from your agent library or create a new one</p>
+                  <h2 className="font-serif text-2xl text-white mb-2">Select an agent to begin</h2>
+                  <p className="text-gray-light">Choose from your agent library or create a new one</p>
                 </div>
               </div>
             )}
@@ -145,7 +128,7 @@ export default function ChatPage() {
 
         {/* Intelligence Panel */}
         {showIntelligencePanel && (
-          <div className="w-96 border-l border-light-gray bg-parchment overflow-y-auto">
+          <div className="w-96 border-l border-light-gray bg-charcoal overflow-y-auto">
             <IntelligencePanel
               conversationTopic={conversationTopic}
               selectedAgentId={selectedAgent?.id}

@@ -1,51 +1,73 @@
 @import "tailwindcss";
 
-/* The.Cafe Color Palette */
+/**
+ * THE.CAFE PLATFORM - GEOMETRIC MINIMALIST DESIGN SYSTEM
+ * Matching the marketing website aesthetic
+ * Black background, white text, red accents, modern geometric design
+ */
+
+/* ═══════════════════════════════════════════════════════════════
+   COLOR SYSTEM - High Contrast Monochromatic
+   ═══════════════════════════════════════════════════════════════ */
+
 :root {
-  /* Primary Colors */
-  --espresso: #2c1810;
-  --coffee: #4a3428;
-  --mocha: #6b4e3d;
-  --cream: #f5f1ed;
-  --parchment: #e8e3db;
+  /* Core Geometric Palette */
+  --pure-black: #000000;
+  --deep-black: #0a0a0a;
+  --charcoal: #1a1a1a;
+  --dark-gray: #2a2a2a;
+  --mid-gray: #808080;
+  --light-gray: #b3b3b3;
+  --silver: #d9d9d9;
+  --ghost-white: #f5f5f5;
+  --pure-white: #ffffff;
 
-  /* Accent Colors */
-  --burgundy: #8b4049;
-  --gold: #c9a961;
-  --sage: #8b9a7a;
+  /* Accent - Red */
+  --tech-red: #dc2626;
+  --tech-red-hover: #b91c1c;
+  --tech-red-light: rgba(220, 38, 38, 0.1);
 
-  /* Neutral Colors */
-  --charcoal: #3d3d3d;
-  --warm-gray: #6b6561;
-  --light-gray: #d4cec7;
+  /* Geometric Circles */
+  --circle-white: rgba(255, 255, 255, 0.08);
+  --circle-white-dim: rgba(255, 255, 255, 0.03);
+  --circle-red: rgba(220, 38, 38, 0.15);
 
   /* App Theme */
-  --background: var(--cream);
-  --foreground: var(--charcoal);
+  --background: var(--pure-black);
+  --foreground: var(--pure-white);
 }
 
 @theme inline {
-  /* The.Cafe Brand Colors */
-  --color-espresso: var(--espresso);
-  --color-coffee: var(--coffee);
-  --color-mocha: var(--mocha);
-  --color-cream: var(--cream);
-  --color-parchment: var(--parchment);
-  --color-burgundy: var(--burgundy);
-  --color-gold: var(--gold);
-  --color-sage: var(--sage);
-  --color-charcoal: var(--charcoal);
-  --color-warm-gray: var(--warm-gray);
-  --color-light-gray: var(--light-gray);
+  /* Map old color names to new values - keeping semantic meaning */
+  --color-cream: var(--pure-black);           /* Background: light → dark */
+  --color-parchment: var(--deep-black);       /* Secondary bg: light → dark */
+  --color-espresso: var(--pure-white);        /* Was dark brown, now light for text */
+  --color-coffee: var(--pure-white);          /* Was medium brown, now light for text */
+  --color-mocha: var(--dark-gray);            /* Borders */
+  --color-burgundy: var(--tech-red);          /* Accent: burgundy → red */
+  --color-gold: var(--tech-red-hover);        /* Hover accent */
+  --color-charcoal: var(--charcoal);          /* Elevated surface (dark gray) */
+  --color-warm-gray: var(--light-gray);       /* Secondary text */
+  --color-light-gray: var(--dark-gray);       /* Borders */
+  --color-sage: var(--mid-gray);
 
-  /* App Theme */
+  /* New semantic colors */
+  --color-black: var(--pure-black);
+  --color-white: var(--pure-white);
+  --color-red: var(--tech-red);
+  --color-red-hover: var(--tech-red-hover);
+  --color-gray-dark: var(--dark-gray);
+  --color-gray: var(--mid-gray);
+  --color-gray-light: var(--light-gray);
+
+  /* Theme colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  /* Fonts */
-  --font-serif: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: var(--font-geist-mono);
+  /* Fonts - Modern Geometric */
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', var(--font-geist-mono), 'Courier New', monospace;
 }
 
 body {
@@ -54,4 +76,59 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   GEOMETRIC CIRCLE BACKGROUNDS
+   ═══════════════════════════════════════════════════════════════ */
+
+.geometric-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.geometric-bg::before,
+.geometric-bg::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+.geometric-bg::before {
+  width: 600px;
+  height: 600px;
+  top: -200px;
+  right: -100px;
+  background: radial-gradient(circle at center, var(--circle-red) 0%, transparent 70%);
+  border: 2px solid var(--circle-white);
+  animation: circle-float 20s ease-in-out infinite;
+}
+
+.geometric-bg::after {
+  width: 400px;
+  height: 400px;
+  bottom: -150px;
+  left: -50px;
+  background: radial-gradient(circle at center, var(--circle-white) 0%, transparent 70%);
+  border: 2px solid var(--circle-white-dim);
+  animation: circle-float-reverse 25s ease-in-out infinite;
+}
+
+@keyframes circle-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -30px) scale(1.05); }
+}
+
+@keyframes circle-float-reverse {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-20px, 20px) scale(1.08); }
+}
+
+/* Ensure content stays above geometric backgrounds */
+.geometric-bg > * {
+  position: relative;
+  z-index: 1;
 }
